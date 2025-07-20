@@ -6,8 +6,8 @@ const Leaderboard = ({ timeTaken, userData }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // Replace with your Railway backend URL
-  const BACKEND_URL = "webverse-production.up.railway.app";
+  // Replace with your actual Railway backend URL
+  const BACKEND_URL = "https://your-app-name.up.railway.app";
 
   const formatTime = (seconds) => {
     const min = String(Math.floor(seconds / 60)).padStart(2, "0");
@@ -15,14 +15,13 @@ const Leaderboard = ({ timeTaken, userData }) => {
     return `${min}:${sec}`;
   };
 
-  // Calculate player score locally for display
   const playerScore = Math.floor((600 - timeTaken) * 1.5);
   const playerTime = formatTime(timeTaken);
 
   useEffect(() => {
-    const saveAndFetchData = async () => {
+    const fetchLeaderboardData = async () => {
       try {
-        // 1. Save player data to backend
+        // 1. Save player data
         const saveResponse = await fetch(`${BACKEND_URL}/api/players`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -33,67 +32,91 @@ const Leaderboard = ({ timeTaken, userData }) => {
           })
         });
 
-        const saveResult = await saveResponse.json();
-        
+        // Handle non-JSON responses
+        const saveData = await safeJsonParse(saveResponse);
         if (!saveResponse.ok) {
-          throw new Error(saveResult.error || 'Failed to save player data');
+          throw new Error(saveData?.message || 'Failed to save player data');
         }
 
-        // 2. Fetch leaderboard data
+        // 2. Fetch leaderboard
         const lbResponse = await fetch(`${BACKEND_URL}/api/leaderboard`);
-        const lbResult = await lbResponse.json();
+        const lbData = await safeJsonParse(lbResponse);
         
         if (!lbResponse.ok) {
-          throw new Error(lbResult.error || 'Failed to load leaderboard');
+          throw new Error(lbData?.message || 'Failed to load leaderboard');
         }
 
-        // Mark current player entries
-        const updatedLeaderboard = lbResult.data.map(player => ({
+        // Process data
+        const processedData = Array.isArray(lbData) ? lbData : [];
+        const rankedPlayers = processedData.map((player, index) => ({
           ...player,
-          isCurrentPlayer: player.name === userData.name && 
-                         player.timeTaken === timeTaken
+          rank: index + 1,
+          isCurrentPlayer: player.name === userData.name && player.timeTaken === timeTaken,
+          timeFormatted: formatTime(player.timeTaken),
+          score: Math.floor((600 - player.timeTaken) * 1.5)
         }));
 
-        setLeaderboard(updatedLeaderboard);
+        setLeaderboard(rankedPlayers);
       } catch (err) {
-        setError(err.message);
+        console.error('Leaderboard error:', err);
+        setError(cleanErrorMessage(err.message));
       } finally {
         setLoading(false);
       }
     };
 
-    saveAndFetchData();
+    fetchLeaderboardData();
   }, [timeTaken, userData]);
 
-  // Render loading state
+  // Helper function to safely parse responses
+  const safeJsonParse = async (response) => {
+    const text = await response.text();
+    try {
+      return text ? JSON.parse(text) : {};
+    } catch {
+      return { message: text };
+    }
+  };
+
+  // Clean error messages containing HTML
+  const cleanErrorMessage = (msg) => {
+    if (msg.includes('<!DOCTYPE html>')) {
+      return 'Server error occurred. Please try again later.';
+    }
+    return msg;
+  };
+
   if (loading) {
     return (
       <div className="leaderboard-container">
-        <div className="leaderboard-card">
-          <h1 className="leaderboard-title">🏆 TOP PLAYERS LEADERBOARD</h1>
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Updating leaderboard...</p>
-          </div>
+        <div className="leaderboard-card loading">
+          <h1>🏆 LOADING LEADERBOARD</h1>
+          <div className="spinner"></div>
+          <p>Calculating rankings...</p>
         </div>
       </div>
     );
   }
 
-  // Render error state
   if (error) {
     return (
       <div className="leaderboard-container">
-        <div className="leaderboard-card error-mode">
-          <h1 className="leaderboard-title">⚠️ LEADERBOARD ERROR</h1>
+        <div className="leaderboard-card error">
+          <h1>⚠️ LEADERBOARD ERROR</h1>
           <div className="error-message">
             <p>{error}</p>
-            <p>Player: {userData.name}</p>
-            <p>Department: {userData.department}</p>
-            <p>Your Time: {playerTime}</p>
-            <p>Your Score: {playerScore}</p>
-            <button className="retry-button" onClick={() => window.location.reload()}>
-              Retry
+            <div className="player-fallback">
+              <h3>Your Results:</h3>
+              <p><strong>Name:</strong> {userData.name}</p>
+              <p><strong>Department:</strong> {userData.department}</p>
+              <p><strong>Time:</strong> {playerTime}</p>
+              <p><strong>Score:</strong> {playerScore}</p>
+            </div>
+            <button 
+              className="retry-button"
+              onClick={() => window.location.reload()}
+            >
+              Try Again
             </button>
           </div>
         </div>
@@ -101,67 +124,76 @@ const Leaderboard = ({ timeTaken, userData }) => {
     );
   }
 
-  // Render leaderboard
   return (
     <div className="leaderboard-container">
       <div className="leaderboard-card">
-        <h1 className="leaderboard-title">🏆 TOP PLAYERS LEADERBOARD</h1>
+        <h1>🏆 TOP PLAYERS LEADERBOARD</h1>
 
-        <div className="player-result">
-          <div className="result-grid">
-            <div className="result-label">Player:</div>
-            <div className="result-value">{userData.name}</div>
-            
-            <div className="result-label">Department:</div>
-            <div className="result-value">{userData.department}</div>
-            
-            <div className="result-label">Completion Time:</div>
-            <div className="result-value">{playerTime}</div>
-            
-            <div className="result-label">Your Score:</div>
-            <div className="result-value">{playerScore}</div>
-          </div>
-        </div>
-
-        <div className="leaderboard-header">
-          <div className="leaderboard-rank">Rank</div>
-          <div className="leaderboard-name">Player</div>
-          <div className="leaderboard-department">Department</div>
-          <div className="leaderboard-time">Time</div>
-          <div className="leaderboard-score">Score</div>
-        </div>
-
-        <div className="leaderboard-list">
-          {leaderboard.map(player => (
-            <div
-              key={player._id}
-              className={`leaderboard-player ${player.isCurrentPlayer ? 'current-player' : ''}`}
-            >
-              <div className="leaderboard-rank">{player.rank}</div>
-              <div className="leaderboard-name">{player.name}</div>
-              <div className="leaderboard-department">{player.department}</div>
-              <div className="leaderboard-time">{formatTime(player.timeTaken)}</div>
-              <div className="leaderboard-score">{player.score}</div>
+        <div className="player-summary">
+          <h2>Your Performance</h2>
+          <div className="summary-grid">
+            <div className="summary-item">
+              <span>Rank</span>
+              <strong>
+                {leaderboard.find(p => p.isCurrentPlayer)?.rank || '--'}
+              </strong>
             </div>
-          ))}
+            <div className="summary-item">
+              <span>Name</span>
+              <strong>{userData.name}</strong>
+            </div>
+            <div className="summary-item">
+              <span>Department</span>
+              <strong>{userData.department}</strong>
+            </div>
+            <div className="summary-item">
+              <span>Time</span>
+              <strong>{playerTime}</strong>
+            </div>
+            <div className="summary-item">
+              <span>Score</span>
+              <strong>{playerScore}</strong>
+            </div>
+          </div>
         </div>
 
-        {leaderboard.length === 0 && (
-          <div className="no-data-message">
-            No players found. Be the first to join the leaderboard!
+        <div className="leaderboard-table">
+          <div className="table-header">
+            <div className="header-cell rank">Rank</div>
+            <div className="header-cell name">Player</div>
+            <div className="header-cell department">Department</div>
+            <div className="header-cell time">Time</div>
+            <div className="header-cell score">Score</div>
           </div>
-        )}
 
-        <div className="backend-note">
-          <p>Leaderboard updates in real-time. Lower time = higher rank</p>
+          <div className="table-body">
+            {leaderboard.length > 0 ? (
+              leaderboard.map(player => (
+                <div 
+                  key={player._id || player.name} 
+                  className={`table-row ${player.isCurrentPlayer ? 'current-player' : ''}`}
+                >
+                  <div className="cell rank">{player.rank}</div>
+                  <div className="cell name">{player.name}</div>
+                  <div className="cell department">{player.department || '-'}</div>
+                  <div className="cell time">{player.timeFormatted}</div>
+                  <div className="cell score">{player.score}</div>
+                </div>
+              ))
+            ) : (
+              <div className="no-players">
+                No players found. Be the first to complete the challenge!
+              </div>
+            )}
+          </div>
         </div>
 
-        <footer className="leaderboard-footer">
-          World Wide Web Day Challenge © 2025
-          <div className="server-status">
-            Backend: {BACKEND_URL.replace('https://', '')}
-          </div>
-        </footer>
+        <div className="leaderboard-footer">
+          <p>World Wide Web Day Challenge © {new Date().getFullYear()}</p>
+          <p className="server-info">
+            Connected to: {BACKEND_URL.replace('https://', '')}
+          </p>
+        </div>
       </div>
     </div>
   );

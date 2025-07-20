@@ -3,13 +3,20 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "cleanDistDir": true
+      }
     }
   ],
   "routes": [
     {
       "src": "/.*",
-      "dest": "/dist/index.html"
+      "dest": "dist/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
     }
   ]
 }

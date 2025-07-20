@@ -7,7 +7,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
   const [error, setError] = useState(null);
   
   // Replace with your Railway backend URL
-  const BACKEND_URL = "webverse-backend-production.up.railway.app";
+  const BACKEND_URL = "webverse-production.up.railway.app";
 
   const formatTime = (seconds) => {
     const min = String(Math.floor(seconds / 60)).padStart(2, "0");

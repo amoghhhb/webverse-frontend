@@ -1,0 +1,175 @@
+/* Main container with gradient background */
+.extension-container {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  padding: 20px;
+}
+
+/* Card styling */
+.extension-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Title */
+.extension-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Puzzle text */
+.extension-puzzle-text {
+  font-size: 20px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Extensions list */
+.extension-list {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 12px;
+  margin: 25px 0;
+  font-family: monospace;
+  color: #ffffff;
+  font-size: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Input field */
+.extension-input {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 80px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  outline: none;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.extension-input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Hide spin buttons */
+.extension-input::-webkit-outer-spin-button,
+.extension-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Result message */
+.extension-result {
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 24px;
+}
+
+.feedback-success {
+  color: #00ff88;
+}
+
+.feedback-error {
+  color: #ff6b6b;
+}
+
+/* Glassy button (applies to all extension buttons) */
+.extension-button,
+.extension-submit-button {
+  padding: 12px 30px;
+  font-size: 16px;
+  background: transparent !important;
+  color: white;
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+  margin: 10px;
+}
+
+.extension-button:hover:not(:disabled),
+.extension-submit-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: transparent !important;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.35), 0 0 12px 4px rgba(255, 255, 255, 0.6);
+}
+
+.extension-button:disabled,
+.extension-submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+/* Final green button variant */
+.extension-final-button {
+  background: transparent !important;
+  color: #00ff88;
+  border: 2px solid rgba(0, 255, 136, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.extension-final-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+}
+
+/* Footer hint */
+.extension-footer {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 30px;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .extension-card {
+    padding: 30px 20px;
+  }
+
+  .extension-title {
+    font-size: 24px;
+  }
+
+  .extension-input {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .extension-button,
+  .extension-submit-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,198 @@
+/* Reset body margins and hide overflow */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Main container */
+.game-container {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  position: fixed;
+  overflow: hidden;
+}
+
+/* Content box */
+.game-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title text */
+.welcome-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.game-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 10px 0 30px 0;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Name input */
+.name-input-container {
+  margin: 0 0 30px 0;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.name-input {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  text-align: center;
+  outline: none;
+}
+
+.name-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+/* Class/Department input */
+.class-input-container {
+  margin: 0 0 30px 0;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.class-input {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  text-align: center;
+  outline: none;
+}
+
+.class-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+/* ✅ Start button — matches glassy submit-button */
+.start-button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  /* No glow by default */
+}
+
+.start-button:hover:not(:disabled) {
+  background: transparent; /* keep inside transparent */
+  transform: scale(1.05);
+
+  /* Lighter gradient-like glow */
+  box-shadow:
+    0 0 3px 1.5px rgba(255, 255, 255, 0.25),
+    0 0 6px 4px rgba(255, 255, 255, 0.15),
+    0 0 9px 8px rgba(255, 255, 255, 0.07);
+}
+
+.start-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-line {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 6px 0;
+}
+
+/* Menu content */
+.menu-content {
+  position: fixed;
+  top: 80px;
+  right: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .welcome-text, .game-text {
+    font-size: 2rem;
+  }
+
+  .game-content {
+    padding: 30px 20px;
+  }
+
+  .name-input-container,
+  .class-input-container {
+    width: 90%;
+  }
+
+  .start-button {
+    padding: 12px 40px;
+    font-size: 1.1rem;
+  }
+}

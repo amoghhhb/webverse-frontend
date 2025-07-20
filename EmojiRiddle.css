@@ -1,0 +1,179 @@
+/* Main container */
+.emoji-riddle-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  color: white;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* Title */
+.emoji-riddle-title {
+  font-size: 2.5rem;
+  margin: 20px 0;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Glassy content box */
+.emoji-riddle-box {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+/* Instructions */
+.emoji-riddle-instructions {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #eee;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Emoji display */
+.emoji-riddle-clue {
+  font-size: 34px;
+  margin: 15px 0;
+}
+
+/* Input group */
+.emoji-riddle-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* Individual input container */
+.emoji-riddle-input {
+  text-align: center;
+}
+
+/* Input field */
+.emoji-input-field {
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 120px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Letter count below inputs */
+.emoji-letter-hint {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* + signs between inputs */
+.emoji-plus-symbol {
+  font-size: 24px;
+  color: #ff4d4d;
+}
+
+/* Result text */
+.emoji-result-message {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Submit button */
+.emoji-submit-button,
+.emoji-next-button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 15px;
+}
+
+.emoji-submit-button:hover:not(:disabled),
+.emoji-next-button:hover:not(:disabled) {
+  background: transparent;
+  transform: scale(1.05);
+  box-shadow:
+    0 0 3px 1.5px rgba(255, 255, 255, 0.25),
+    0 0 6px 4px rgba(255, 255, 255, 0.15),
+    0 0 9px 8px rgba(255, 255, 255, 0.07);
+}
+
+.emoji-submit-button:disabled,
+.emoji-next-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Warning message */
+.emoji-block-warning {
+  color: #ffcc00;
+  margin-top: 10px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.3);
+}
+
+/* Footer hint */
+.emoji-footer-hint {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .emoji-riddle-title {
+    font-size: 2rem;
+  }
+
+  .emoji-riddle-box {
+    padding: 30px 20px;
+  }
+
+  .emoji-riddle-inputs {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .emoji-input-field {
+    width: 80%;
+    max-width: 200px;
+  }
+
+  .emoji-submit-button,
+  .emoji-next-button {
+    width: 100%;
+    max-width: 220px;
+  }
+}

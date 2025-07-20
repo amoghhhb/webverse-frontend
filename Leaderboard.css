@@ -1,0 +1,227 @@
+.leaderboard-container {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  padding: 20px;
+}
+
+.leaderboard-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 900px;
+  width: 95%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.player-result {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-label {
+  font-weight: bold;
+  text-align: right;
+  color: #00ff88;
+}
+
+.result-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  text-align: left;
+}
+
+/* Added for completion time */
+.result-label.completion-time {
+  color: #00ff88;
+}
+
+.result-value.completion-time {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.leaderboard-header {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 0;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+}
+
+.leaderboard-header > div {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+}
+
+.leaderboard-list {
+  margin-bottom: 30px;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.leaderboard-player {
+  display: flex;
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-player > div {
+  flex: 1;
+  text-align: center;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-player:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.current-player {
+  background: rgba(0, 255, 136, 0.15) !important;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.leaderboard-rank {
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.leaderboard-name {
+  font-weight: 600;
+}
+
+.leaderboard-department {
+  font-style: italic;
+  color: #aaa;
+}
+
+.leaderboard-time, .leaderboard-score {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.leaderboard-footer {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Scrollbar styling */
+.leaderboard-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.leaderboard-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .leaderboard-card {
+    padding: 30px 15px;
+  }
+  
+  .leaderboard-title {
+    font-size: 24px;
+  }
+  
+  .player-result {
+    grid-template-columns: auto;
+    justify-items: center;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .result-label, .result-value {
+    text-align: center;
+  }
+  
+  .leaderboard-header, .leaderboard-player {
+    font-size: 12px;
+  }
+  
+  .leaderboard-header > div, .leaderboard-player > div {
+    padding: 0 5px;
+    word-break: break-word;
+  }
+  
+  .leaderboard-name, .leaderboard-department {
+    text-align: center;
+  }
+  /* Add these to your existing CSS */
+.loading-message {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 40px 0;
+  color: #00ff88;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 40px 0;
+  color: #ff6b6b;
+}
+/* ... existing styles ... */
+
+.backend-note {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.backend-note p {
+  margin: 5px 0;
+}
+
+/* ... existing styles ... */
+}

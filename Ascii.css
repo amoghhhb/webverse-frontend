@@ -1,0 +1,231 @@
+/* Main container */
+.ascii-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 18px;
+  overflow: hidden;
+}
+
+/* Content box */
+.challenge-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 34px;
+  border-radius: 18px;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  margin-bottom: 26px;
+}
+
+/* Title */
+.challenge-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 22px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Binary display */
+.binary-display {
+  font-size: 1.3rem;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 20px;
+  color: #00ff88;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  margin: 18px 0;
+  display: inline-block;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+}
+
+/* Hint text */
+.hint-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+/* Input group */
+.input-group {
+  margin: 26px 0;
+}
+
+/* Glass-like input field */
+.ascii-input {
+  width: 100%;
+  max-width: 280px;
+  padding: 14px 22px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  text-align: center;
+  margin: 8px 0;
+  -moz-appearance: textfield; /* Firefox */
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Hide spinner arrows on number input */
+.ascii-input::-webkit-outer-spin-button,
+.ascii-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Placeholder styling */
+.ascii-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  letter-spacing: 0.4px;
+  font-size: 0.9rem;
+}
+
+/* Focus state */
+.ascii-input:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 2px 6px rgba(255, 255, 255, 0.15);
+}
+
+.ascii-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button group */
+.button-group {
+  margin: 18px 0;
+}
+
+/* Base ascii button */
+.ascii-button {
+  padding: 12px 28px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid white;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+}
+
+.ascii-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 10px 3px rgba(255, 255, 255, 0.5);
+}
+
+.ascii-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ascii-button.blocked {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: rgba(255, 0, 0, 0.5);
+}
+
+/* Next button */
+.next-button {
+  padding: 12px 28px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid white;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+}
+
+.next-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.5);
+}
+
+.next-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Feedback messages */
+.feedback-message {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 18px 0;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.feedback-success {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+}
+
+.feedback-error {
+  color: #ff6b6b;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .challenge-card {
+    padding: 26px 18px;
+  }
+  
+  .challenge-card h2 {
+    font-size: 1.1rem;
+  }
+  
+  .binary-display {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+  
+  .ascii-input {
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
+  
+  .ascii-button,
+  .next-button {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+}

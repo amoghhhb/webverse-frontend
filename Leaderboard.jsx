@@ -10,16 +10,19 @@ const Leaderboard = ({ timeTaken, userData }) => {
   
   const BACKEND_URL = "https://webverse-production.up.railway.app";
 
+  // Format time as MM:SS
   const formatTime = (seconds) => {
     const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
     const secs = String(seconds % 60).padStart(2, "0");
     return `${mins}:${secs}`;
   };
 
+  // Calculate score (higher is better)
   const calculateScore = (time) => Math.floor((600 - time) * 1.5);
   const playerScore = calculateScore(timeTaken);
   const playerTime = formatTime(timeTaken);
 
+  // Save score to localStorage when offline
   const saveScoreLocally = () => {
     const pendingScores = JSON.parse(localStorage.getItem('pendingScores') || '[]');
     pendingScores.push({
@@ -32,6 +35,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
     localStorage.setItem('pendingScores', JSON.stringify(pendingScores));
   };
 
+  // Submit score to server
   const submitScoreToServer = async (signal) => {
     try {
       const response = await fetch(`${BACKEND_URL}/api/players`, {
@@ -54,6 +58,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
     }
   };
 
+  // Fetch leaderboard data
   const fetchLeaderboard = async (signal) => {
     try {
       const response = await fetch(`${BACKEND_URL}/api/leaderboard`, { signal });
@@ -66,7 +71,8 @@ const Leaderboard = ({ timeTaken, userData }) => {
         ...player,
         rank: index + 1,
         timeFormatted: formatTime(player.timeTaken),
-        isCurrentPlayer: player.name === userData.name
+        isCurrentPlayer: player.name === userData.name,
+        score: calculateScore(player.timeTaken)
       }));
     } catch (err) {
       console.error('Leaderboard fetch error:', err);
@@ -74,6 +80,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
     }
   };
 
+  // Submit any pending scores from localStorage
   const submitPendingScores = async (signal) => {
     const pendingScores = JSON.parse(localStorage.getItem('pendingScores') || '[]');
     if (pendingScores.length === 0) return;
@@ -110,6 +117,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
     }
   };
 
+  // Main data loading effect
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -171,6 +179,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
     }
     setLoading(true);
     setError(null);
+    window.location.reload();
   };
 
   if (loading) {

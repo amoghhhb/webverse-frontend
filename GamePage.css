@@ -1,0 +1,151 @@
+/* Main container */
+.game-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+  color: white;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* Title outside the content box */
+.clue-header {
+  font-size: 2.5rem;
+  margin: 20px 0;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Content box with glass effect */
+.content-box {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+/* Problem text */
+.logic-problem {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #eee;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.variables {
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+/* Form styling */
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Input field */
+.answer-input {
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 120px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons */
+.submit-button, .circuit-button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: transparent; /* transparent inside */
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  /* no glow by default */
+}
+
+.submit-button:hover:not(:disabled),
+.circuit-button:hover:not(:disabled) {
+  background: transparent; /* keep inside transparent on hover */
+  transform: scale(1.05);
+
+  /* gradient glow */
+  box-shadow:
+    0 0 3px 1.5px rgba(255, 255, 255, 0.25),
+    0 0 6px 4px rgba(255, 255, 255, 0.15),
+    0 0 9px 8px rgba(255, 255, 255, 0.07);
+}
+
+.submit-button:disabled,
+.circuit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Error message */
+.error-message {
+  color: #ff6b6b;
+  margin-top: 10px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .clue-header {
+    font-size: 2rem;
+  }
+  
+  .content-box {
+    padding: 30px 20px;
+  }
+  
+  .input-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .answer-input {
+    width: 80%;
+    max-width: 200px;
+  }
+  
+  .submit-button, .circuit-button {
+    width: 100%;
+    max-width: 220px;
+  }
+}

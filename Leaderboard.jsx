@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './Leaderboard.css';
 
 const Leaderboard = ({ timeTaken, userData }) => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeEndpoint, setActiveEndpoint] = useState('');
   
-  // Updated backend configuration
+  // Backend configuration
   const BACKEND_CONFIG = {
-    production: "https://webverse-backend-production.up.railway.app",
+    production: "https://webverse-production.up.railway.app",
     development: "http://localhost:5000",
-    fallback: "https://webverse-game-backend-production.up.railway.app"
+    fallback: "https://webverse-production.up.railway.app"
   };
 
   const getBackendUrl = () => {
-    if (import.meta.env.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+    if (import.meta.env?.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+    if (process.env.REACT_APP_API_BASE_URL) return process.env.REACT_APP_API_BASE_URL;
     return process.env.NODE_ENV === 'production' 
       ? BACKEND_CONFIG.production 
       : BACKEND_CONFIG.development;
   };
-
-  const BACKEND_URL = getBackendUrl();
 
   const formatTime = (seconds) => {
     const min = String(Math.floor(seconds / 60)).padStart(2, "0");
@@ -32,54 +33,109 @@ const Leaderboard = ({ timeTaken, userData }) => {
   const playerScore = calculateScore(timeTaken);
   const playerTime = formatTime(timeTaken);
 
+  // Test if an endpoint is reachable
+  const testConnection = async (url) => {
+    try {
+      const response = await fetch(`${url}/health`, { method: 'HEAD' });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  // Process and sort leaderboard data
+  const processLeaderboardData = (data) => {
+    return data
+      .map(player => ({
+        ...player,
+        timeFormatted: formatTime(player.timeTaken),
+        score: calculateScore(player.timeTaken),
+        isCurrentPlayer: player.name === userData.name
+      }))
+      .sort((a, b) => a.timeTaken - b.timeTaken)
+      .map((player, index) => ({ ...player, rank: index + 1 }));
+  };
+
+  // Fetch leaderboard data with endpoint fallback
+  const fetchLeaderboardData = async (signal) => {
+    const endpoints = [
+      getBackendUrl(),
+      BACKEND_CONFIG.production,
+      BACKEND_CONFIG.fallback
+    ].filter(Boolean);
+
+    for (const endpoint of endpoints) {
+      try {
+        const isAlive = await testConnection(endpoint);
+        if (!isAlive) continue;
+        
+        const response = await fetch(`${endpoint}/api/leaderboard`, { signal });
+        if (!response.ok) continue;
+        
+        const data = await response.json();
+        if (Array.isArray(data?.data)) {
+          setActiveEndpoint(endpoint);
+          return processLeaderboardData(data.data);
+        }
+      } catch (err) {
+        console.error(`Failed with ${endpoint}`, err);
+      }
+    }
+    throw new Error('All endpoints failed');
+  };
+
+  // Save player data to the backend
+  const savePlayerData = async (signal) => {
+    const pendingScores = JSON.parse(localStorage.getItem('pendingScores') || '[]');
+    const allScores = [...pendingScores, {
+      name: userData.name,
+      department: userData.department,
+      timeTaken,
+      timestamp: Date.now()
+    }];
+
+    // Try to send all pending scores
+    for (const endpoint of [activeEndpoint, ...Object.values(BACKEND_CONFIG)]) {
+      if (!endpoint) continue;
+      
+      try {
+        const success = await Promise.all(
+          allScores.map(score => 
+            fetch(`${endpoint}/api/players`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(score),
+              signal
+            }).then(r => r.ok)
+          )
+        );
+
+        if (success.every(Boolean)) {
+          localStorage.removeItem('pendingScores');
+          return;
+        }
+      } catch (err) {
+        console.error(`Failed to save with ${endpoint}`, err);
+      }
+    }
+
+    // If all failed, store locally
+    localStorage.setItem('pendingScores', JSON.stringify(allScores));
+  };
+
+  // Main data loading effect
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    const fetchData = async () => {
+    const loadData = async () => {
       try {
-        // Try multiple endpoints if needed
-        const endpointsToTry = [
-          `${BACKEND_URL}/api/leaderboard`,
-          `${BACKEND_CONFIG.fallback}/api/leaderboard`
-        ];
-
-        let leaderboardData = [];
-        let lastError = null;
-
-        for (const endpoint of endpointsToTry) {
-          try {
-            const response = await fetch(endpoint, { signal });
-            if (!response.ok) continue;
-            
-            const data = await response.json();
-            if (Array.isArray(data?.data)) {
-              leaderboardData = data.data;
-              break;
-            }
-          } catch (err) {
-            lastError = err;
-            continue;
-          }
-        }
-
-        if (leaderboardData.length === 0 && lastError) {
-          throw lastError;
-        }
-
-        // Process data
-        const rankedPlayers = leaderboardData.map((player, index) => ({
-          ...player,
-          rank: index + 1,
-          isCurrentPlayer: player.name === userData.name,
-          timeFormatted: formatTime(player.timeTaken),
-          score: calculateScore(player.timeTaken)
-        }));
-
-        setLeaderboard(rankedPlayers);
+        await savePlayerData(signal);
+        const data = await fetchLeaderboardData(signal);
+        setLeaderboard(data);
         setError(null);
       } catch (err) {
-        console.error('Leaderboard fetch error:', err);
+        console.error('Data loading error:', err);
         setError({
           message: 'Failed to connect to leaderboard server',
           details: err.message
@@ -89,31 +145,22 @@ const Leaderboard = ({ timeTaken, userData }) => {
       }
     };
 
-    // First save player data, then fetch leaderboard
-    const saveAndFetch = async () => {
-      try {
-        // Try to save player data (but proceed even if it fails)
-        await fetch(`${BACKEND_URL}/api/players`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: userData.name,
-            department: userData.department,
-            timeTaken: timeTaken
-          }),
-          signal
-        }).catch(() => {}); // Silently fail if save doesn't work
-        
-        await fetchData();
-      } catch (err) {
-        console.error('Save and fetch error:', err);
-      }
-    };
-
-    saveAndFetch();
+    loadData();
 
     return () => controller.abort();
   }, [timeTaken, userData]);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+    setLeaderboard([]);
+    useEffect(() => {
+      // Re-trigger the data loading effect
+      const controller = new AbortController();
+      loadData(controller.signal);
+      return () => controller.abort();
+    }, []);
+  };
 
   if (loading) {
     return (
@@ -130,9 +177,7 @@ const Leaderboard = ({ timeTaken, userData }) => {
         <h2>⚠️ Connection Error</h2>
         <p className="error-message">
           {error.message}
-          {error.details && (
-            <span className="error-detail">({error.details})</span>
-          )}
+          {error.details && <span className="error-detail">({error.details})</span>}
         </p>
         
         <div className="player-results">
@@ -157,18 +202,18 @@ const Leaderboard = ({ timeTaken, userData }) => {
           </div>
         </div>
 
-        <button 
-          className="retry-button"
-          onClick={() => window.location.reload()}
-        >
+        <button className="retry-button" onClick={handleRetry}>
           Retry Connection
         </button>
 
         <div className="connection-info">
           <p>Tried connecting to:</p>
           <ul>
-            <li>{BACKEND_URL}</li>
-            <li>{BACKEND_CONFIG.fallback}</li>
+            {[getBackendUrl(), BACKEND_CONFIG.production, BACKEND_CONFIG.fallback]
+              .filter(url => url)
+              .map((url, i) => (
+                <li key={i}>{url}</li>
+              ))}
           </ul>
         </div>
       </div>
@@ -179,9 +224,11 @@ const Leaderboard = ({ timeTaken, userData }) => {
     <div className="leaderboard-container">
       <header className="leaderboard-header">
         <h1>🏆 Game Leaderboard</h1>
-        <p className="connection-status">
-          Connected to: {BACKEND_URL.replace('https://', '')}
-        </p>
+        {activeEndpoint && (
+          <p className="connection-status">
+            Connected to: {activeEndpoint.replace('https://', '')}
+          </p>
+        )}
       </header>
 
       <section className="player-summary">
@@ -240,9 +287,22 @@ const Leaderboard = ({ timeTaken, userData }) => {
 
       <footer className="leaderboard-footer">
         <p>World Wide Web Day Challenge © {new Date().getFullYear()}</p>
+        {localStorage.getItem('pendingScores') && (
+          <p className="offline-notice">
+            Note: Some scores may be pending submission due to connection issues
+          </p>
+        )}
       </footer>
     </div>
   );
+};
+
+Leaderboard.propTypes = {
+  timeTaken: PropTypes.number.isRequired,
+  userData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    department: PropTypes.string
+  }).isRequired
 };
 
 export default Leaderboard;

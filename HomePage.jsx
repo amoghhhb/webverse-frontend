@@ -3,32 +3,51 @@
 import { useState } from "react"
 import "./HomePage.css"
 
-const HomePage = ({ onStartGame }) => {
-  const [playerName, setPlayerName] = useState("")
-  const [department, setDepartment] = useState("")
+function HomePage({ onNext }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [fullName, setFullName] = useState("")
+  const [department, setDepartment] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleStartGame = async () => {
-    if (!playerName.trim()) {
-      alert("Please enter your name")
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
+  const handleStart = async (e) => {
+    e.preventDefault()
+
+    if (!fullName.trim() || !department.trim()) {
+      alert("Please enter your full name AND class/department.")
       return
     }
 
     setIsLoading(true)
 
-    // Simulate loading delay
-    setTimeout(() => {
-      onStartGame({
-        name: playerName.trim(),
-        department: department.trim() || "General",
+    try {
+      // 🔥 Send to /submit
+      const res = await fetch("https://webverse-flame.vercel.app/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullName.trim(),
+          department: department.trim(),
+        }),
       })
-      setIsLoading(false)
-    }, 1500)
-  }
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+      const data = await res.json()
+      // console.log('Server response:', data);
+
+      // Proceed to the next step
+      onNext({
+        name: fullName.trim(),
+        department: department.trim(),
+      })
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("Connection error. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -51,10 +70,10 @@ const HomePage = ({ onStartGame }) => {
         <div className={`menu-content ${isMenuOpen ? "show" : ""}`}>
           <h3 className="menu-title">🎮 Game Information</h3>
           <div className="menu-item">
-            <strong>Objective:</strong> Test your web development knowledge and speed
+            <strong>Instructions:</strong> Enter your full name and class/department and click START to begin the game.
           </div>
           <div className="menu-item">
-            <strong>Time Limit:</strong> Complete challenges as quickly as possible
+            <strong>Objective:</strong> Test your web development knowledge and speed
           </div>
           <div className="menu-item">
             <strong>Scoring:</strong> Based on accuracy and completion time
@@ -68,8 +87,8 @@ const HomePage = ({ onStartGame }) => {
         <div className="game-content">
           {/* Header Section */}
           <div className="header-section">
-            <h1 className="welcome-text">Welcome to</h1>
-            <h2 className="game-text">Web Challenge</h2>
+            <h1 className="welcome-text">WELCOME TO</h1>
+            <h1 className="game-text">THE GAME</h1>
             <p className="subtitle">Test your skills and climb the leaderboard</p>
           </div>
 
@@ -100,45 +119,51 @@ const HomePage = ({ onStartGame }) => {
           </div>
 
           {/* Form Section */}
-          <div className="form-section">
+          <form onSubmit={handleStart} className="form-section">
             <div className="input-group name-input-container">
-              <label htmlFor="playerName" className="input-label">
-                Player Name
+              <label htmlFor="fullName" className="input-label">
+                Full Name
               </label>
               <input
-                id="playerName"
+                id="fullName"
                 type="text"
-                className="form-input"
-                placeholder="Enter your name"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                maxLength={30}
+                name="fullname"
+                className="form-input name-input"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Your Full Name"
+                maxLength={50}
                 required
               />
             </div>
 
-            <div className="input-group class-input-container">
+            <div className="input-group department-input-container">
               <label htmlFor="department" className="input-label">
-                Department (Optional)
+                Class / Department
               </label>
               <input
                 id="department"
                 type="text"
-                className="form-input"
-                placeholder="e.g., Computer Science, Marketing"
+                name="department"
+                className="form-input name-input"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
+                placeholder="Your Class / Department"
                 maxLength={50}
+                required
               />
             </div>
-          </div>
 
-          {/* Button Section */}
-          <div className="button-section">
-            <button className="start-button" onClick={handleStartGame} disabled={!playerName.trim() || isLoading}>
-              {isLoading ? "Starting Game..." : "Start Challenge"}
-            </button>
-          </div>
+            <div className="button-section">
+              <button
+                className="start-button"
+                type="submit"
+                disabled={!fullName.trim() || !department.trim() || isLoading}
+              >
+                {isLoading ? "STARTING..." : "START"}
+              </button>
+            </div>
+          </form>
 
           {/* Footer */}
           <div className="footer-section">

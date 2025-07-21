@@ -61,16 +61,15 @@ html {
 }
 
 /* Main Container */
-.game-container {
+game-container {
   min-height: 100vh;
   width: 100%;
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d3561 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
-  position: relative;
+  position: relative;
 }
 
 .game-container::before {

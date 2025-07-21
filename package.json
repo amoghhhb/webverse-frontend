@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "postinstall": "node fix-permissions.js",
     "build": "vite build",
-    "preview": "vite preview",
-    "vercel-build": "npm run build"
+    "vercel-build": "chmod +x node_modules/.bin/vite && npm run build"
   },
   "dependencies": {
     "prop-types": "^15.8.1",

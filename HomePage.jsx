@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import "./homepage.css"
+import "./HomePage.css"
 
 const HomePage = ({ onStartGame }) => {
   const [playerName, setPlayerName] = useState("")

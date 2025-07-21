@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: './', // Critical for Vercel deployment
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './')
@@ -14,13 +15,14 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
-      external: [
-        'prop-types', // Add prop-types to external dependencies
-        // Add any other external dependencies here if needed
-      ]
+      output: {
+        assetFileNames: 'assets/[name].[ext]',
+        entryFileNames: 'assets/[name].js'
+      }
     }
   },
-  optimizeDeps: {
-    include: ['prop-types'] // Ensure prop-types is included in optimization
+  server: {
+    port: 3000,
+    open: true
   }
 });

@@ -1,19 +1,21 @@
 {
   "name": "webverse",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "postinstall": "node fix-permissions.js",
+    "dev": "vite",
     "build": "vite build",
-    "vercel-build": "chmod +x node_modules/.bin/vite && npm run build"
+    "preview": "vite preview",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-},
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
+    "@types/prop-types": "^15.7.15",
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^5.1.4"
+    "vite": "^5.4.19"
   }
 }

@@ -40,7 +40,7 @@
 }
 
 input:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px #0a0e27 inset !important; /* Your background color */
+  box-shadow: 0 0 0px 1000px transparent inset !important; /* Your background color */
   -webkit-text-fill-color: #ffffff !important; /* Your text color */
   transition: background-color 9999s ease-in-out 0s; /* Prevents flash */
 }

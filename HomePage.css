@@ -39,6 +39,12 @@
   --transition-slow: 0.5s ease-out;
 }
 
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #0a0e27 inset !important; /* Your background color */
+  -webkit-text-fill-color: #ffffff !important; /* Your text color */
+  transition: background-color 9999s ease-in-out 0s; /* Prevents flash */
+}
+
 /* Base Styles */
 * {
   box-sizing: border-box;

@@ -18,7 +18,7 @@ function HomePage({ onNext }) {
 
     try {
       // 🔥 Send to /submit
-      const res = await fetch('http://localhost:5000/submit', {
+      const res = await fetch('https://webverse-production.up.railway.app/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

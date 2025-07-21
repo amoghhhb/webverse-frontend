@@ -92,32 +92,6 @@ function HomePage({ onNext }) {
             <p className="subtitle">Test your skills and climb the leaderboard</p>
           </div>
 
-          {/* Game Info */}
-          <div className="game-info">
-            <h3 className="info-title">
-              <span>🏆</span>
-              Game Features
-            </h3>
-            <ul className="info-list">
-              <li className="info-item">
-                <span className="info-icon">⚡</span>
-                Real-time challenges
-              </li>
-              <li className="info-item">
-                <span className="info-icon">🎯</span>
-                Skill-based scoring
-              </li>
-              <li className="info-item">
-                <span className="info-icon">📊</span>
-                Global leaderboard
-              </li>
-              <li className="info-item">
-                <span className="info-icon">🏅</span>
-                Achievement system
-              </li>
-            </ul>
-          </div>
-
           {/* Form Section */}
           <form onSubmit={handleStart} className="form-section">
             <div className="input-group name-input-container">

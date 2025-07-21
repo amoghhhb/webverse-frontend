@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import "./leaderboard.css"
+import "./Leaderboard.css"
 
 const Leaderboard = ({ timeTaken, userData }) => {
   const [leaderboard, setLeaderboard] = useState([])

@@ -254,7 +254,7 @@ game-container {
 
 /* Input Icons */
 .name-input-container::before {
-  content: "👤";
+  content: "";
   position: absolute;
   right: 1rem;
   top: 2.5rem;
@@ -264,7 +264,7 @@ game-container {
 }
 
 .department-input-container::before {
-  content: "🏢";
+  content: "";
   position: absolute;
   right: 1rem;
   top: 2.5rem;

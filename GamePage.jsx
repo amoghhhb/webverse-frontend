@@ -45,57 +45,73 @@ function GamePage({ onNext, timer, TimerDisplay }) {
     }
   }
 
+  const handleSimulatorClick = () => {
+    window.open("https://circuitverse.org/simulator", "_blank", "noopener,noreferrer")
+  }
+
   return (
-    <div className="game-container">
+    <div className="puzzle-container">
       {/* Timer Display */}
-      <div className="timer-section">{TimerDisplay}</div>
+      <div className="timer-wrapper">{TimerDisplay}</div>
 
       {/* Main Content */}
-      <div className="content-box">
+      <div className="main-content">
         {/* Header Section */}
-        <div className="header-section">
-          <h1 className="puzzle-title">Logic Gate Puzzle</h1>
-          <div className="challenge-badge">
-            <span className="badge-icon">🧩</span>
+        <header className="game-header">
+          <h1 className="game-title">Logic Gate Puzzle</h1>
+          <div className="level-badge">
+            <span className="level-icon" role="img" aria-label="puzzle">
+              🧩
+            </span>
             <span className="badge-text">Challenge 1</span>
           </div>
-        </div>
+        </header>
 
         {/* Problem Section */}
-        <div className="problem-section">
-          <div className="problem-card">
-            <h3 className="problem-title">
-              <span className="problem-icon">⚡</span>
-              Solve the Logic Expression
-            </h3>
-            <div className="logic-expression">
-              <code className="expression-code">(A AND B) OR C</code>
+        <section className="puzzle-problem">
+          <div className="problem-container">
+            <h2 className="problem-heading">
+              <span className="problem-emoji" role="img" aria-label="lightning">
+                ⚡
+              </span>
+              <span>Solve the Logic Expression</span>
+            </h2>
+            <div className="expression-display">
+              <code className="code-expression" aria-label="Logic expression: A AND B OR C">
+                (A AND B) OR C
+              </code>
             </div>
-            <div className="variables-section">
-              <h4 className="variables-title">Given Values:</h4>
-              <div className="variables-grid">
-                <div className="variable-item">
-                  <span className="variable-name">A</span>
-                  <span className="variable-value">1</span>
+            <div className="values-section">
+              <h3 className="values-heading">Given Values:</h3>
+              <div className="values-display" role="list" aria-label="Variable values">
+                <div className="value-pair" role="listitem">
+                  <span className="value-label">A =</span>
+                  <span className="value-number" aria-label="A equals 1">
+                    1
+                  </span>
                 </div>
-                <div className="variable-item">
-                  <span className="variable-name">B</span>
-                  <span className="variable-value">0</span>
+                <div className="value-pair" role="listitem">
+                  <span className="value-label">B =</span>
+                  <span className="value-number" aria-label="B equals 0">
+                    0
+                  </span>
                 </div>
-                <div className="variable-item">
-                  <span className="variable-name">C</span>
-                  <span className="variable-value">1</span>
+                <div className="value-pair" role="listitem">
+                  <span className="value-label">C =</span>
+                  <span className="value-number" aria-label="C equals 1">
+                    1
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Answer Section */}
-        <div className="answer-section">
-          <form onSubmit={handleSubmit} className="answer-form">
-            <div className="input-group">
-              <label htmlFor="answer" className="input-label">
+        <section className="input-section">
+          <form onSubmit={handleSubmit} className="input-form">
+            <div className="form-group">
+              <label htmlFor="answer" className="form-label">
                 Your Answer
               </label>
               <input
@@ -103,97 +119,109 @@ function GamePage({ onNext, timer, TimerDisplay }) {
                 type="text"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                className="answer-input"
+                className="text-input"
                 disabled={isBlocked || timer === 0 || isCorrect}
-                placeholder="Enter 0 or 1"
+                placeholder="0 or 1"
                 maxLength={1}
+                pattern="[01]"
+                inputMode="numeric"
+                aria-describedby="answer-help"
+                autoComplete="off"
               />
+              <div id="answer-help" className="sr-only">
+                Enter either 0 or 1 as your answer to the logic expression
+              </div>
             </div>
+
+            {/* Circuit Simulator Helper Button */}
+            <button
+              type="button"
+              className="helper-button"
+              onClick={handleSimulatorClick}
+              aria-label="Open CircuitVerse simulator in new tab"
+            >
+              <span className="helper-icon" role="img" aria-hidden="true">
+                🔧
+              </span>
+              <span>Circuit Simulator</span>
+            </button>
+
             <button
               type="submit"
-              className="submit-button"
+              className="primary-button"
               disabled={isBlocked || timer === 0 || isCorrect || !answer.trim()}
+              aria-describedby="submit-status"
             >
               {isBlocked ? `Wait ${blockTimer}s` : "Submit Answer"}
             </button>
           </form>
-        </div>
+        </section>
 
         {/* Status Section */}
-        <div className="status-section">
+        <section className="feedback-section" aria-live="polite" aria-atomic="true">
           {errorMessage && (
-            <div className="status-message error-message">
-              <span className="status-icon">❌</span>
-              <span className="status-text">
+            <div className="feedback-message error-feedback" role="alert">
+              <span className="feedback-icon" aria-hidden="true">
+                ❌
+              </span>
+              <span className="feedback-text">
                 {errorMessage} {isBlocked && ` (${blockTimer}s)`}
               </span>
             </div>
           )}
 
           {isCorrect && (
-            <div className="status-message success-message">
-              <span className="status-icon">✅</span>
-              <span className="status-text">Correct! Click next to continue.</span>
+            <div className="feedback-message success-feedback" role="alert">
+              <span className="feedback-icon" aria-hidden="true">
+                ✅
+              </span>
+              <span className="feedback-text">Correct! Click next to continue.</span>
             </div>
           )}
 
           {timer === 0 && (
-            <div className="status-message timeout-message">
-              <span className="status-icon">⏰</span>
-              <span className="status-text">Time's up!</span>
+            <div className="feedback-message timeout-feedback" role="alert">
+              <span className="feedback-icon" aria-hidden="true">
+                ⏰
+              </span>
+              <span className="feedback-text">{"Time's up!"}</span>
             </div>
           )}
-        </div>
+        </section>
 
         {/* Progress Section */}
-        <div className="progress-section">
-          <div className="attempts-counter">
-            <span className="counter-label">Attempts:</span>
-            <div className="attempts-dots">
+        <section className="attempts-section">
+          <div className="attempts-display">
+            <span className="attempts-label">Attempts:</span>
+            <div className="dots-container" role="img" aria-label={`${tries} out of 3 attempts used`}>
               {[1, 2, 3].map((attempt) => (
-                <div key={attempt} className={`attempt-dot ${tries >= attempt ? "used" : ""}`} />
+                <div
+                  key={attempt}
+                  className={`attempt-indicator ${tries >= attempt ? "used" : ""}`}
+                  aria-hidden="true"
+                />
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Navigation Section */}
-        <div className="navigation-section">
+        <section className="action-section">
           <button
-            className={`next-button ${!isCorrect || timer === 0 ? "disabled" : ""}`}
+            className={`action-button ${!isCorrect || timer === 0 ? "disabled" : ""}`}
             onClick={onNext}
             disabled={!isCorrect || timer === 0}
+            aria-describedby="next-help"
           >
-            <span className="button-text">Go to Next Clue</span>
-            <span className="button-icon">➡️</span>
+            <span className="action-text">Go to Next Clue</span>
+            <span className="action-icon" aria-hidden="true">
+              ➡️
+            </span>
           </button>
-        </div>
-
-        {/* Help Section */}
-        <div className="help-section">
-          <details className="help-details">
-            <summary className="help-summary">
-              <span className="help-icon">💡</span>
-              Need Help?
-            </summary>
-            <div className="help-content">
-              <p>
-                <strong>Logic Gates:</strong>
-              </p>
-              <ul className="help-list">
-                <li>
-                  <code>AND</code>: Returns 1 only if both inputs are 1
-                </li>
-                <li>
-                  <code>OR</code>: Returns 1 if at least one input is 1
-                </li>
-              </ul>
-              <p>
-                <strong>Tip:</strong> Solve step by step: First calculate (A AND B), then OR with C.
-              </p>
-            </div>
-          </details>
-        </div>
+          <div id="next-help" className="sr-only">
+            Available only after answering correctly and within time limit
+          </div>
+        </section>
       </div>
     </div>
   )

@@ -50,8 +50,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -60,13 +59,17 @@ body {
 
 /* Main Container */
 .puzzle-container {
+  height: 100vh;
+  height: 100dvh;
   width: 100vw;
-  min-height: 100vh;
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d3561 100%);
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .puzzle-container::before {
@@ -88,8 +91,6 @@ body {
   position: relative;
   z-index: 2;
   margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
   flex-shrink: 0;
 }
 
@@ -104,11 +105,12 @@ body {
   box-shadow: var(--shadow-xl);
   width: 100%;
   max-width: min(580px, 90vw);
+  max-height: calc(100vh - 3rem);
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 2rem auto;
+  overflow: hidden;
   animation: slideUp 0.8s ease-out;
 }
 
@@ -198,14 +200,14 @@ body {
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   font-family: "JetBrains Mono", monospace;
-  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
   font-weight: 600;
   border: 1px solid var(--border-primary);
   display: inline-block;
   box-shadow: var(--shadow-sm);
 }
 
-/* Values Section */
+/* Variables Section */
 .values-section {
   margin-top: 0.75rem;
 }
@@ -214,59 +216,42 @@ body {
   font-size: clamp(0.8rem, 2.2vw, 0.9rem);
   font-weight: 600;
   color: var(--text-secondary);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.riddle-instructions {
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* Riddle Input Section */
-.input-section {
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-
-.riddle-inputs {
+.values-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
-.riddle-input-group {
+.value-pair {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.375rem;
 }
 
-.riddle-input {
-  width: 100px;
-  max-width: 100px;
-  padding: 0.5rem;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  text-align: center;
+.value-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
 }
 
-.letter-count {
-  font-size: clamp(0.7rem, 1.5vw, 0.75rem);
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.plus-symbol {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
+.value-number {
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(1rem, 2.8vw, 1.1rem);
+  font-weight: 700;
   color: var(--text-accent);
-  font-weight: bold;
-  margin: 0 0.25rem;
+}
+
+/* Answer Section */
+.input-section {
+  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .input-form {
@@ -631,13 +616,8 @@ body {
     padding: 2rem;
   }
 
-  .riddle-inputs {
-    gap: 1.5rem;
-  }
-
-  .riddle-input {
-    width: 120px;
-    max-width: 120px;
+  .values-display {
+    gap: 2rem;
   }
 }
 
@@ -652,25 +632,20 @@ body {
     max-width: 520px;
   }
 
-  .riddle-inputs {
-    gap: 1rem;
+  .values-display {
+    gap: 1.25rem;
   }
 }
 
 /* Small Screens (Mobile) */
 @media (max-width: 767px) {
   .puzzle-container {
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
 
   .main-content {
-    padding: 1rem;
-    max-width: 98vw;
-    margin-bottom: 1rem;
-  }
-
-  .timer-wrapper {
-    margin-bottom: 0.5rem;
+    padding: 1.25rem;
+    max-width: 95vw;
   }
 
   .game-header {
@@ -688,8 +663,8 @@ body {
     padding: 0.75rem;
   }
 
-  .riddle-inputs {
-    gap: 0.5rem;
+  .values-display {
+    gap: 1rem;
   }
 
   .input-form {
@@ -712,20 +687,9 @@ body {
     max-width: 98vw;
   }
 
-  .riddle-inputs {
+  .values-display {
     flex-direction: column;
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  .plus-symbol {
-    transform: rotate(90deg);
-    margin: 0;
-  }
-
-  .riddle-input {
-    width: 140px;
-    max-width: 140px;
+    gap: 0.375rem;
   }
 
   .form-group {
@@ -742,11 +706,6 @@ body {
 @media (max-width: 320px) {
   .main-content {
     padding: 0.75rem;
-  }
-
-  .riddle-input {
-    width: 120px;
-    max-width: 120px;
   }
 
   .form-group {
@@ -782,13 +741,9 @@ body {
     min-height: 35px;
   }
 
-  .riddle-inputs {
+  .values-display {
     flex-direction: row;
-    gap: 0.75rem;
-  }
-
-  .plus-symbol {
-    transform: none;
+    gap: 1rem;
   }
 
   .input-form {

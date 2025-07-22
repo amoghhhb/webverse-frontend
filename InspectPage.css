@@ -1,180 +1,447 @@
-/* Main container */
-.game-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
-  color: white;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+/* CSS Custom Properties */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --accent-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --error-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --bg-tertiary: #2d3561;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --bg-input: rgba(255, 255, 255, 0.03);
+  --text-primary: #ffffff;
+  --text-secondary: #b8c5d6;
+  --text-muted: #8892b0;
+  --text-accent: #64ffda;
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-focus: rgba(100, 255, 218, 0.5);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.25);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
 }
 
-/* Title outside the content box */
-.clue-header {
-  font-size: 2.5rem;
-  margin: 20px 0;
-  color: #ffffff;
-  text-align: center;
-  width: 100%;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-/* Content box with glass effect */
-.content-box {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  max-width: 600px;
-  width: 90%;
+/* Base Styles */
+* {
   box-sizing: border-box;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
 }
 
-/* Problem text */
-.logic-problem {
-  font-size: 1.25rem;
-  margin-bottom: 25px;
-  color: #eee;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
-/* Form styling */
-.answer-form {
+/* Main Container - NEVER CHANGES */
+.detective-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d3561 100%) !important;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 2rem 1rem;
+  position: relative;
 }
 
-.input-group {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 15px;
+.detective-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header */
+.mystery-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  background: var(--warning-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px rgba(250, 112, 154, 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(250, 112, 154, 0.6));
+  }
+}
+
+/* Content Panel - KEEP CONSISTENT */
+.investigation-panel {
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-primary) !important;
+  border-radius: var(--radius-xl);
+  padding: 3.5rem 3rem;
+  box-shadow: var(--shadow-xl) !important;
   width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.8s ease-out;
+  transition: all var(--transition-normal);
 }
 
-/* Input field */
-.answer-input {
-  padding: 12px 15px;
-  font-size: 1.3rem;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-  width: 90px;
+/* REMOVE SUCCESS/ERROR CONTAINER STYLES - These were causing the color changes */
+.success-container {
+  /* Remove all styling - keep panel consistent */
+}
+
+.error-container {
+  /* Remove all styling - keep panel consistent */
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.riddle-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Form Section */
+.verification-form {
+  margin-bottom: 2rem;
+}
+
+.code-input-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: stretch;
+}
+
+.secret-code-field {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: var(--bg-input);
+  border: 2px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
   text-align: center;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  transition: all var(--transition-normal);
+  font-family: "JetBrains Mono", monospace;
 }
 
-.answer-input:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.answer-input:disabled {
-  background: rgba(51, 51, 51, 0.25);
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* Hide spin buttons */
-.answer-input::-webkit-inner-spin-button,
-.answer-input::-webkit-outer-spin-button {
+/* Hide number input arrows */
+.secret-code-field::-webkit-outer-spin-button,
+.secret-code-field::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.answer-input {
+.secret-code-field[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Buttons */
-.submit-button, .next-button {
-  padding: 12px 30px;
+.secret-code-field:focus {
+  border-color: var(--border-focus);
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+}
+
+.secret-code-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secret-code-field::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.verify-btn {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bg-primary);
+  background: var(--success-gradient);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-md);
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.verify-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.verify-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.verify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.1);
+}
+
+.verify-btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
+/* Status Indicator - Only this changes color, not the whole panel */
+.status-indicator {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.success-indicator {
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: #4facfe;
+  animation: successPulse 0.6s ease-in-out;
+}
+
+.error-indicator {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+  animation: errorShake 0.6s ease-in-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+/* Attempts Section */
+.attempts-section {
+  margin-bottom: 1.5rem;
+}
+
+.attempts-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.attempts-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.attempts-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.attempts-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border-primary);
+  transition: all var(--transition-normal);
+}
+
+.attempts-dot.used {
+  background: var(--error-gradient);
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Proceed Button */
+.proceed-btn {
+  width: 100%;
+  padding: 1rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: white;
-  background: transparent !important;  /* fully transparent inside */
-  border: 2px solid white;
-  border-radius: 30px;
+  color: var(--bg-primary);
+  background: var(--secondary-gradient);
+  border: none;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 12px 0;
-  box-shadow: none;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
 }
 
-.submit-button:hover:not(:disabled),
-.next-button:hover:not(:disabled) {
-  background: transparent !important;  /* keep inside transparent */
-  transform: scale(1.05);
-  box-shadow:
-    0 0 3px 1.5px rgba(255, 255, 255, 0.25),
-    0 0 6px 4px rgba(255, 255, 255, 0.15),
-    0 0 9px 8px rgba(255, 255, 255, 0.07);
+.proceed-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
 }
 
-.submit-button:disabled,
-.next-button:disabled {
+.proceed-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.proceed-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.1);
+}
+
+.proceed-btn:disabled {
+  background: var(--text-muted);
   cursor: not-allowed;
-  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+  filter: none;
 }
 
-/* Messages */
-.error-message {
-  margin-top: 15px;
-  font-weight: 600;
-  color: #ff6b6b;
-  text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
-  min-height: 24px;
-}
-
-.success-message {
-  margin-top: 15px;
-  font-weight: 600;
-  color: #00ff88;
-  text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
-  min-height: 24px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .clue-header {
-    font-size: 2rem;
-    margin-bottom: 15px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detective-wrapper {
+    padding: 1rem 0.5rem;
   }
-  
-  .content-box {
-    padding: 30px 20px;
+  .investigation-panel {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+    margin: 0 0.5rem;
   }
-  
-  .input-group {
+  .mystery-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .code-input-section {
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    gap: 1rem;
   }
-  
-  .answer-input {
-    width: 80%;
-    max-width: 200px;
-  }
-  
-  .submit-button, .next-button {
+  .verify-btn {
     width: 100%;
-    max-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .investigation-panel {
+    padding: 1.5rem 1rem;
+  }
+  .mystery-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  .riddle-text {
+    font-size: 1rem;
+  }
+  .secret-code-field {
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+  }
+  .verify-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  .proceed-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

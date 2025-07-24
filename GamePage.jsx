@@ -110,7 +110,7 @@ function GamePage({ onNext, timer, TimerDisplay }) {
                 onChange={(e) => setAnswer(e.target.value)}
                 className="response-field"
                 disabled={isBlocked || timer === 0 || isCorrect}
-                placeholder="0 or 1"
+                placeholder=""
                 maxLength={1}
                 pattern="[01]"
                 inputMode="numeric"

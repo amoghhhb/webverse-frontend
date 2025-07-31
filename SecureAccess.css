@@ -41,7 +41,6 @@ body {
   z-index: 0;
 }
 
-<<<<<<< HEAD
 /*------------------------------------*\
     #TOP-LEFT TIMER (NEW STYLE)
 \*------------------------------------*/
@@ -58,8 +57,8 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 0.6rem 1.2rem;
-  border-radius: 12px; 
-  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   font-family: "JetBrains Mono", monospace;
   color: #ffffff;
@@ -84,39 +83,6 @@ body {
   filter: drop-shadow(0 0 5px rgba(253, 195, 109, 0.5));
 }
 
-
-=======
-/* Timer Display */
-.timer-display {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.timer-value {
-  font-size: 1.8rem;
-  font-weight: 700;
-  font-family: "JetBrains Mono", monospace;
-  color: #ffffff;
-}
-
-.timer-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.6);
-}
-
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 /* Access Terminal */
 .access-terminal {
   background: rgba(255, 255, 255, 0.05);
@@ -446,8 +412,4 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

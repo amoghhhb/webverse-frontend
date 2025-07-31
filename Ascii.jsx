@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react"
 import "./Ascii.css"
 
-function Ascii({ onNext, timer }) {
+function Ascii({ onNext, timer, TimerDisplay }) {
   const [numberInput, setNumberInput] = useState("")
   const [result, setResult] = useState({ show: false, isCorrect: false })
   const [attempts, setAttempts] = useState(0)
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTime, setBlockTime] = useState(0)
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false) // State for hamburger menu
 
   // Helper function to format the time
@@ -19,6 +20,8 @@ function Ascii({ onNext, timer }) {
     const paddedSeconds = String(remainingSeconds).padStart(2, '0');
     return `${paddedMinutes}:${paddedSeconds}`;
   };
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   useEffect(() => {
     let timerId
@@ -55,14 +58,14 @@ function Ascii({ onNext, timer }) {
     }
   }
 
-  // This function toggles the menu's visibility
+<<<<<<< HEAD
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
   return (
     <div className="binary-workshop">
-      {/* Timer Display */}
+      {/* CORRECTED: Using "top-left-timer" class now */}
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -75,7 +78,7 @@ function Ascii({ onNext, timer }) {
         <div className="toggle-bar"></div>
       </div>
 
-      {/* Information Panel (controlled by the hamburger menu) */}
+      {/* Information Panel */}
       <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
         <h3 className="panel-header">ASCII Hint</h3>
         <div className="info-item">
@@ -83,20 +86,32 @@ function Ascii({ onNext, timer }) {
         </div>
       </div>
 
-      {/* Main Content */}
+=======
+  return (
+    <div className="binary-workshop">
+      {TimerDisplay}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       <div className="conversion-station">
         <h2>What number does this binary represent?:</h2>
         <p>
           <code className="binary-sequence">00110010</code>
         </p>
+<<<<<<< HEAD
         <p className="conversion-hint">(The binary represents a single-digit character)</p>
+=======
+        <p className="conversion-hint">(The binary represents a single-digit number)</p>
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
         <div className="conversion-controls">
           <input
             type="number"
             value={numberInput}
             onChange={(e) => setNumberInput(e.target.value)}
             onKeyPress={handleKeyPress}
+<<<<<<< HEAD
             placeholder={isBlocked ? `Blocked (${blockTime}s)` : "Enter decrypted answer"}
+=======
+            placeholder={isBlocked ? `Blocked (${blockTime}s)` : "Enter your decrypted answer here"}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
             className="binary-decoder"
             disabled={isBlocked || timer === 0}
           />
@@ -134,4 +149,8 @@ function Ascii({ onNext, timer }) {
   )
 }
 
+<<<<<<< HEAD
 export default Ascii
+=======
+export default Ascii
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

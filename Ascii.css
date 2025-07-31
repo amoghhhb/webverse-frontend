@@ -69,7 +69,6 @@ body {
   position: relative;
 }
 
-<<<<<<< HEAD
 /* Hamburger Menu */
 .nav-toggle {
   position: fixed;
@@ -165,8 +164,6 @@ body {
   color: var(--text-primary);
 }
 
-=======
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 .binary-workshop::before {
   content: "";
   position: absolute;
@@ -187,18 +184,18 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-primary);
-  border-radius: var(--radius-lg); /* Reduced from xl */
-  padding: 1.5rem 2rem; /* Much reduced padding */
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
   box-shadow: var(--shadow-xl);
   width: 100%;
-  max-width: 500px; /* Reduced from 500px */
+  max-width: 500px;
   text-align: center;
   position: relative;
   z-index: 1;
   animation: slideUp 0.8s ease-out;
-  margin: 0; /* Remove margin */
-  max-height: calc(100vh - 1rem); /* Ensure it fits in viewport */
-  overflow-y: auto; /* Allow internal scrolling if needed */
+  margin: 0;
+  max-height: calc(100vh - 1rem);
+  overflow-y: auto;
 }
 
 @keyframes slideUp {
@@ -213,9 +210,9 @@ body {
 }
 
 .conversion-station h2 {
-  font-size: clamp(1rem, 3vw, 1.4rem); /* Much smaller */
+  font-size: clamp(1rem, 3vw, 1.4rem);
   font-weight: 700;
-  margin: 0 0 1rem 0; /* Reduced margin */
+  margin: 0 0 1rem 0;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -227,20 +224,20 @@ body {
 /* Binary Display */
 .binary-sequence {
   font-family: "JetBrains Mono", monospace;
-  font-size: 2rem; /* Reduced from 2.5rem */
+  font-size: 2rem;
   font-weight: 700;
   color: var(--text-accent);
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 1rem; /* Reduced from 1.5rem */
+  padding: 1rem;
   border-radius: var(--radius-md);
   background-color: var(--bg-input);
   border: 1px solid var(--border-primary);
   display: inline-block;
-  letter-spacing: 3px; /* Reduced from 4px */
-  margin: 0.75rem 0; /* Reduced from 1rem 0 */
+  letter-spacing: 3px;
+  margin: 0.75rem 0;
   animation: binaryGlow 2s ease-in-out infinite alternate;
 }
 
@@ -254,15 +251,15 @@ body {
 }
 
 .conversion-hint {
-  font-size: 0.9rem; /* Reduced from 1rem */
+  font-size: 0.9rem;
   color: var(--text-muted);
-  margin: 0.75rem 0 1rem 0; /* Reduced margins */
+  margin: 0.75rem 0 1rem 0;
   font-style: italic;
 }
 
 /* Input Section */
 .conversion-controls {
-  margin-bottom: 1rem; /* Reduced from 2rem */
+  margin-bottom: 1rem;
 }
 
 .binary-decoder {
@@ -311,14 +308,14 @@ body {
 
 /* Control Panel */
 .control-panel {
-  margin-bottom: 1rem; /* Reduced from 2rem */
+  margin-bottom: 1rem;
 }
 
 .decode-submit {
   width: 100%;
   max-width: 250px;
-  padding: 0.875rem 1.5rem; /* Reduced padding */
-  font-size: 1rem; /* Reduced from 1.1rem */
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--bg-primary);
   background: var(--success-gradient);
@@ -458,8 +455,8 @@ body {
 /* Next Button */
 .workshop-next {
   width: 100%;
-  padding: 0.875rem 1.5rem; /* Reduced padding */
-  font-size: 1rem; /* Reduced from 1.1rem */
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--bg-primary);
   background: var(--secondary-gradient);

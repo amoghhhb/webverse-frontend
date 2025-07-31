@@ -3,14 +3,11 @@
 import { useState, useEffect, useRef } from "react"
 import "./SecureAccess.css"
 
-const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
+const SecureAccess = ({ timer, onNext }) => {
   const [passcode, setPasscode] = useState("")
   const [status, setStatus] = useState("idle")
   const [attempts, setAttempts] = useState(0)
-<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-=======
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   const inputRef = useRef(null)
 
   useEffect(() => {
@@ -24,8 +21,7 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
       setStatus("timeout")
     }
   }, [timer, status])
-<<<<<<< HEAD
-  
+
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -37,8 +33,6 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-=======
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   const handleInputChange = (e) => {
     const value = e.target.value
@@ -66,11 +60,7 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
   const checkCode = (entered) => {
     if (entered === "182025") {
       setStatus("success")
-<<<<<<< HEAD
       setAttempts(0)
-=======
-      setAttempts(0) // Reset attempts on success
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       setTimeout(() => {
         onNext()
       }, 1500)
@@ -87,7 +77,6 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
 
   return (
     <div className="vault-chamber">
-<<<<<<< HEAD
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -102,13 +91,9 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
       <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
         <h3 className="panel-header">Secure Access Hint</h3>
         <div className="info-item">
-          <strong>Hint:</strong> The passcode is a 6-digit number. Think about significant 
-          dates related to the web (like when it was created).
+          <strong>Hint:</strong> The passcode is a 6-digit number. Think about significant dates related to the web (like when it was created).
         </div>
       </div>
-=======
-      {TimerDisplay}
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
       <div className="access-terminal">
         <h1 className="terminal-header">🔐 SECURE ACCESS PORTAL</h1>
@@ -162,8 +147,4 @@ const SecureAccess = ({ timer, TimerDisplay, onNext }) => {
   )
 }
 
-<<<<<<< HEAD
 export default SecureAccess
-=======
-export default SecureAccess
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

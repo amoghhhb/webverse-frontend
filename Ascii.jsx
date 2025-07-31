@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import "./Ascii.css"
 
-function Ascii({ onNext, timer, TimerDisplay }) {
+function Ascii({ onNext, timer }) {
   const [numberInput, setNumberInput] = useState("")
   const [result, setResult] = useState({ show: false, isCorrect: false })
   const [attempts, setAttempts] = useState(0)
@@ -55,6 +55,7 @@ function Ascii({ onNext, timer, TimerDisplay }) {
     }
   }
 
+  // This function toggles the menu's visibility
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -74,7 +75,7 @@ function Ascii({ onNext, timer, TimerDisplay }) {
         <div className="toggle-bar"></div>
       </div>
 
-      {/* Information Panel (Hint) */}
+      {/* Information Panel (controlled by the hamburger menu) */}
       <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
         <h3 className="panel-header">ASCII Hint</h3>
         <div className="info-item">

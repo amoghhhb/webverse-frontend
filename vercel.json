@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "version": 2,
   "builds": [
@@ -16,22 +15,3 @@
     { "src": "/.*", "dest": "/index.html" }
   ]
 }
-=======
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "buildCommand": "npm run build"
-      }
-    }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
-  ]
-}
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

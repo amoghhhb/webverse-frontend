@@ -3,13 +3,12 @@
 import { useState } from "react"
 import "./ExtensionPuzzle.css"
 
-const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
+const ExtensionPuzzle = ({ timer, onNext }) => {
   const [answer, setAnswer] = useState("")
   const [result, setResult] = useState("")
   const [showNextButton, setShowNextButton] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
   const [attempts, setAttempts] = useState(0)
-<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const formatTime = (seconds) => {
@@ -25,11 +24,6 @@ const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
   }
 
   const checkAnswer = (e) => {
-=======
-
-  const checkAnswer = (e) => {
-    // Prevent form submission and scrolling
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
     if (e) {
       e.preventDefault()
     }
@@ -39,11 +33,7 @@ const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
       setResult("✅ Correct! These are executable: .exe, .com, .cmd, .bat, .scr")
       setIsCorrect(true)
       setShowNextButton(true)
-<<<<<<< HEAD
       setAttempts(0)
-=======
-      setAttempts(0) // Reset attempts on success
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
     } else {
       const newAttempts = attempts + 1
       setAttempts(newAttempts)
@@ -55,7 +45,6 @@ const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
 
   return (
     <div className="file-lab">
-<<<<<<< HEAD
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -70,14 +59,10 @@ const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
       <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
         <h3 className="panel-header">Extension Puzzle Hint</h3>
         <div className="info-item">
-          <strong>Hint:</strong> Executable files are programs that can be run directly by the operating system. 
-          Common executable extensions include .exe, .com, .bat, etc.
+          <strong>Hint:</strong> Executable files are programs that can be run directly by the operating system. Common executable extensions include .exe, .com, .bat, etc.
         </div>
       </div>
 
-=======
-      {TimerDisplay}
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       <div className="lab-workstation">
         <h1 className="lab-banner">🧠 Extension Decoding Challenge</h1>
         <div className="challenge-prompt">
@@ -142,8 +127,4 @@ const ExtensionPuzzle = ({ timer, TimerDisplay, onNext }) => {
   )
 }
 
-<<<<<<< HEAD
 export default ExtensionPuzzle
-=======
-export default ExtensionPuzzle
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

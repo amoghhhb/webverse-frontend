@@ -74,9 +74,12 @@ function HomePage({ onNext }) {
             <strong>Scoring:</strong> Based on accuracy and completion time
           </div>
           <div className="info-item">
+<<<<<<< HEAD
             <strong>Tip:</strong> Only those who remember the clues will find the way out
           </div>
           <div className="info-item">
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
             <strong>Leaderboard:</strong> Compete with other players globally
           </div>
         </div>

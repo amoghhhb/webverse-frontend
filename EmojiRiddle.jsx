@@ -14,12 +14,16 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTimeLeft, setBlockTimeLeft] = useState(0)
   const [isCorrect, setIsCorrect] = useState(false)
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   const input2Ref = useRef(null)
   const input3Ref = useRef(null)
   const submitBtnRef = useRef(null)
 
+<<<<<<< HEAD
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -28,6 +32,8 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
     return `${paddedMinutes}:${paddedSeconds}`;
   };
 
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   useEffect(() => {
     let timerId = null
     if (isBlocked && blockTimeLeft > 0) {
@@ -40,10 +46,13 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
     return () => clearTimeout(timerId)
   }, [isBlocked, blockTimeLeft])
 
+<<<<<<< HEAD
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   const updateResult = () => {
     if (isBlocked || timer === 0) return
 
@@ -85,6 +94,7 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
 
   return (
     <div className="symbol-chamber">
+<<<<<<< HEAD
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -103,6 +113,9 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
           a common phrase related to web development.
         </div>
       </div>
+=======
+      <div className="clock-display">{TimerDisplay}</div>
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
       <div className="chamber-content">
         <header className="riddle-header">
@@ -250,4 +263,8 @@ export default function EmojiRiddle({ onNext, timer, TimerDisplay }) {
       </div>
     </div>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

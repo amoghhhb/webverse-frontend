@@ -11,6 +11,7 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
   const [error, setError] = useState("")
   const [isVerified, setIsVerified] = useState(false)
   const [successMsg, setSuccessMsg] = useState("")
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const formatTime = (seconds) => {
@@ -24,6 +25,8 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   const handleInputChange = (e) => {
     const val = e.target.value
@@ -71,6 +74,10 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
     return () => clearTimeout(timerId)
   }, [isBlocked, timeLeft])
 
+<<<<<<< HEAD
+=======
+  // Determine container class based on state
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   const getContainerClass = () => {
     if (isVerified) return "investigation-panel success-container"
     if (error) return "investigation-panel error-container"
@@ -79,6 +86,7 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
 
   return (
     <div className="detective-wrapper">
+<<<<<<< HEAD
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -98,6 +106,9 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
         </div>
       </div>
 
+=======
+      {TimerDisplay}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       <div className={getContainerClass()}>
         <h1 className="mystery-title">INSPECT TILL YOU SUSPECT 🕵️</h1>
         <p className="riddle-text">Discover the hidden verification code:</p>
@@ -157,4 +168,8 @@ function InspectPage({ onNext, timer, TimerDisplay }) {
   )
 }
 
+<<<<<<< HEAD
 export default InspectPage
+=======
+export default InspectPage
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

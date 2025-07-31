@@ -11,6 +11,7 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
   const [attempts, setAttempts] = useState(0)
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTime, setBlockTime] = useState(0)
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const correctAnswer = "zero"
 
@@ -22,6 +23,10 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
     return `${paddedMinutes}:${paddedSeconds}`;
   };
 
+=======
+  const correctAnswer = "zero"
+
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   useEffect(() => {
     let timerId
     if (isBlocked && blockTime > 0) {
@@ -33,10 +38,13 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
     return () => clearTimeout(timerId)
   }, [isBlocked, blockTime])
 
+<<<<<<< HEAD
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
   const checkAnswer = () => {
     if (isBlocked || timer === 0) return
     if (userAnswer.trim().toLowerCase() === correctAnswer) {
@@ -63,6 +71,7 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
 
   return (
     <div className="cipher-studio">
+<<<<<<< HEAD
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
@@ -82,6 +91,9 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
         </div>
       </div>
 
+=======
+      {TimerDisplay}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       <div className="decryption-workspace">
         <h2 className="studio-title">🔐 Caesar Cipher Decryption Quiz</h2>
         <div className="coded-transmission">
@@ -137,4 +149,8 @@ export default function CaesarCipherQuiz({ onNext, timer, TimerDisplay }) {
       </div>
     </div>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

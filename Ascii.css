@@ -69,6 +69,7 @@ body {
   position: relative;
 }
 
+<<<<<<< HEAD
 /* Hamburger Menu */
 .nav-toggle {
   position: fixed;
@@ -164,6 +165,8 @@ body {
   color: var(--text-primary);
 }
 
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 .binary-workshop::before {
   content: "";
   position: absolute;

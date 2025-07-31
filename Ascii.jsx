@@ -9,6 +9,7 @@ function Ascii({ onNext, timer, TimerDisplay }) {
   const [attempts, setAttempts] = useState(0)
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTime, setBlockTime] = useState(0)
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false) // State for hamburger menu
 
   // Helper function to format the time
@@ -19,6 +20,8 @@ function Ascii({ onNext, timer, TimerDisplay }) {
     const paddedSeconds = String(remainingSeconds).padStart(2, '0');
     return `${paddedMinutes}:${paddedSeconds}`;
   };
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   useEffect(() => {
     let timerId
@@ -55,6 +58,7 @@ function Ascii({ onNext, timer, TimerDisplay }) {
     }
   }
 
+<<<<<<< HEAD
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -82,19 +86,32 @@ function Ascii({ onNext, timer, TimerDisplay }) {
         </div>
       </div>
 
+=======
+  return (
+    <div className="binary-workshop">
+      {TimerDisplay}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
       <div className="conversion-station">
         <h2>What number does this binary represent?:</h2>
         <p>
           <code className="binary-sequence">00110010</code>
         </p>
+<<<<<<< HEAD
         <p className="conversion-hint">(The binary represents a single-digit character)</p>
+=======
+        <p className="conversion-hint">(The binary represents a single-digit number)</p>
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
         <div className="conversion-controls">
           <input
             type="number"
             value={numberInput}
             onChange={(e) => setNumberInput(e.target.value)}
             onKeyPress={handleKeyPress}
+<<<<<<< HEAD
             placeholder={isBlocked ? `Blocked (${blockTime}s)` : "Enter decrypted answer"}
+=======
+            placeholder={isBlocked ? `Blocked (${blockTime}s)` : "Enter your decrypted answer here"}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
             className="binary-decoder"
             disabled={isBlocked || timer === 0}
           />
@@ -132,4 +149,8 @@ function Ascii({ onNext, timer, TimerDisplay }) {
   )
 }
 
+<<<<<<< HEAD
 export default Ascii
+=======
+export default Ascii
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

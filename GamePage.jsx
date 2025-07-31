@@ -10,6 +10,7 @@ function GamePage({ onNext, timer, TimerDisplay }) {
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTimer, setBlockTimer] = useState(10)
   const [isCorrect, setIsCorrect] = useState(false)
+<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => {
@@ -24,6 +25,8 @@ function GamePage({ onNext, timer, TimerDisplay }) {
     const paddedSeconds = String(remainingSeconds).padStart(2, '0');
     return `${paddedMinutes}:${paddedSeconds}`;
   };
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   useEffect(() => {
     let timerId
@@ -58,7 +61,10 @@ function GamePage({ onNext, timer, TimerDisplay }) {
       }
     }
   }
+<<<<<<< HEAD
   
+=======
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   const handleSimulatorClick = () => {
     window.open("https://circuitverse.org/simulator", "_blank", "noopener,noreferrer")
@@ -66,6 +72,7 @@ function GamePage({ onNext, timer, TimerDisplay }) {
 
   return (
     <div className="logic-arena">
+<<<<<<< HEAD
       {/* CORRECTED: Using "top-left-timer" class now */}
       <div className="top-left-timer">
         <span className="icon">⌛</span>
@@ -99,6 +106,9 @@ function GamePage({ onNext, timer, TimerDisplay }) {
             <strong>Leaderboard:</strong> Compete with other players globally
           </div>
         </div>
+=======
+      <div className="countdown-display">{TimerDisplay}</div>
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
       <div className="arena-content">
         <header className="challenge-header">
@@ -196,7 +206,11 @@ function GamePage({ onNext, timer, TimerDisplay }) {
             </button>
 
             <button
+<<<<<<< HEAD
               className={`Maps-btn ${!isCorrect || timer === 0 ? "disabled" : ""}`}
+=======
+              className={`navigate-btn ${!isCorrect || timer === 0 ? "disabled" : ""}`}
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
               onClick={onNext}
               disabled={!isCorrect || timer === 0}
               aria-describedby="next-help"
@@ -258,4 +272,8 @@ function GamePage({ onNext, timer, TimerDisplay }) {
   )
 }
 
+<<<<<<< HEAD
 export default GamePage
+=======
+export default GamePage
+>>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f

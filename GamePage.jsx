@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react"
 import "./GamePage.css"
 
-function GamePage({ onNext, timer, TimerDisplay }) {
+function GamePage({ onNext, timer }) {
   const [answer, setAnswer] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const [tries, setTries] = useState(0)
   const [isBlocked, setIsBlocked] = useState(false)
   const [blockTimer, setBlockTimer] = useState(10)
   const [isCorrect, setIsCorrect] = useState(false)
-<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => {
@@ -25,8 +24,6 @@ function GamePage({ onNext, timer, TimerDisplay }) {
     const paddedSeconds = String(remainingSeconds).padStart(2, '0');
     return `${paddedMinutes}:${paddedSeconds}`;
   };
-=======
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   useEffect(() => {
     let timerId
@@ -61,10 +58,6 @@ function GamePage({ onNext, timer, TimerDisplay }) {
       }
     }
   }
-<<<<<<< HEAD
-  
-=======
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
 
   const handleSimulatorClick = () => {
     window.open("https://circuitverse.org/simulator", "_blank", "noopener,noreferrer")
@@ -72,43 +65,38 @@ function GamePage({ onNext, timer, TimerDisplay }) {
 
   return (
     <div className="logic-arena">
-<<<<<<< HEAD
-      {/* CORRECTED: Using "top-left-timer" class now */}
       <div className="top-left-timer">
         <span className="icon">⌛</span>
         <span>{formatTime(timer)}</span>
       </div>
 
       <div
-          className={`nav-toggle ${isMenuOpen ? "active" : ""}`}
-          onClick={toggleMenu}
-          role="button"
-          tabIndex={0}
-          aria-label="Toggle menu"
-        >
-          <div className="toggle-bar"></div>
-          <div className="toggle-bar"></div>
-          <div className="toggle-bar"></div>
-        </div>
+        className={`nav-toggle ${isMenuOpen ? "active" : ""}`}
+        onClick={toggleMenu}
+        role="button"
+        tabIndex={0}
+        aria-label="Toggle menu"
+      >
+        <div className="toggle-bar"></div>
+        <div className="toggle-bar"></div>
+        <div className="toggle-bar"></div>
+      </div>
 
-        <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
-          <h3 className="panel-header">🎮 Game Information</h3>
-          <div className="info-item">
-            <strong>Instructions:</strong> Enter your full name and class/department and click START to begin the game.
-          </div>
-          <div className="info-item">
-            <strong>Objective:</strong> Test your web development knowledge and speed
-          </div>
-          <div className="info-item">
-            <strong>Scoring:</strong> Based on accuracy and completion time
-          </div>
-          <div className="info-item">
-            <strong>Leaderboard:</strong> Compete with other players globally
-          </div>
+      <div className={`info-panel ${isMenuOpen ? "show" : ""}`}>
+        <h3 className="panel-header">🎮 Game Information</h3>
+        <div className="info-item">
+          <strong>Instructions:</strong> Enter your full name and class/department and click START to begin the game.
         </div>
-=======
-      <div className="countdown-display">{TimerDisplay}</div>
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
+        <div className="info-item">
+          <strong>Objective:</strong> Test your web development knowledge and speed
+        </div>
+        <div className="info-item">
+          <strong>Scoring:</strong> Based on accuracy and completion time
+        </div>
+        <div className="info-item">
+          <strong>Leaderboard:</strong> Compete with other players globally
+        </div>
+      </div>
 
       <div className="arena-content">
         <header className="challenge-header">
@@ -206,11 +194,7 @@ function GamePage({ onNext, timer, TimerDisplay }) {
             </button>
 
             <button
-<<<<<<< HEAD
               className={`Maps-btn ${!isCorrect || timer === 0 ? "disabled" : ""}`}
-=======
-              className={`navigate-btn ${!isCorrect || timer === 0 ? "disabled" : ""}`}
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
               onClick={onNext}
               disabled={!isCorrect || timer === 0}
               aria-describedby="next-help"
@@ -272,8 +256,4 @@ function GamePage({ onNext, timer, TimerDisplay }) {
   )
 }
 
-<<<<<<< HEAD
 export default GamePage
-=======
-export default GamePage
->>>>>>> 12d342421f26c5d71edaaaa84c9fe763152dc40f
